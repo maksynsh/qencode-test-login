@@ -6,7 +6,8 @@ import GlobalStyles from '@lib/globalStyles'
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyles></GlobalStyles>Hello World!
+      <GlobalStyles />
+      Hello World!
     </ThemeProvider>
   )
 }

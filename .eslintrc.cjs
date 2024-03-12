@@ -2,6 +2,7 @@ module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
+    "airbnb",
     'prettier',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended-type-checked',
