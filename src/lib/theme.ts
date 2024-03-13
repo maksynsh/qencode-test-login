@@ -1,19 +1,20 @@
 const theme = {
   colors: {
-    greys: {
-      900: '#1A1919',
-      800: '#060E1E',
-      400: '#D3D8DC',
-    },
     primary: '#316FEA',
+    blue: '#0055D5',
+    lightBlue: '#A6C9FF',
     white: '#fff',
-    black: '#000',
+    black: '#1A1919',
+    grey: '#060E1E',
+    lightGrey: '#D3D8DC',
+    light: '#E3E6E9',
+    red: '#D21C1C',
   },
   fontSizes: {
     lg: '30px',
     md: '16px',
-    sm: '15px',
-    xs: '14px',
+    sm: '14px',
+    xs: '12px',
   },
   fontWeight: {
     semiBold: 700,
@@ -21,9 +22,9 @@ const theme = {
     regular: 400,
   },
   space: {
-    '0,5': '4px',
+    0.5: '4px',
     1: '8px',
-    '1,5': '12px',
+    1.5: '12px',
     2: '16px',
     3: '24px',
     4: '32px',
@@ -42,13 +43,6 @@ const theme = {
     lg: '1200px',
     xl: '1600px',
   },
-  containerGutters: {
-    xs: 20,
-    sm: 25,
-    md: 30,
-    lg: 40,
-    xl: 80,
-  },
   zIndex: {
     topApp: '9999',
     topSection: '9998',
@@ -59,5 +53,7 @@ const theme = {
     lg: '56px',
   },
 } as const
+
+export type CustomTheme = typeof theme
 
 export default theme
