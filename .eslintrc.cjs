@@ -2,7 +2,6 @@ module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
-    "airbnb",
     'prettier',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended-type-checked',
@@ -16,6 +15,13 @@ module.exports = {
   plugins: ['react-refresh', 'prettier'],
   rules: {
     "prettier/prettier": "error",
+    "no-console": "warn",
+    "no-param-reassign": "off",
+    "no-return-await": "off",
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off",
+    "no-restricted-exports": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
