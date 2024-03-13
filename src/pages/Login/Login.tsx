@@ -2,19 +2,20 @@ import Button from '@ui/Button'
 import Icon from '@ui/Icon'
 import Typography from '@ui/Typography'
 import Input from '@ui/Input'
+import AuthWidget from '@components/AuthWidget'
 
-import { LoginWidget, CloudLoginButtons, SDivider, InputsWrapper, SLink } from './styled'
+import { CloudLoginButtons, SDivider, InputsWrapper, SLink } from './styled'
 
 const Login = () => {
   return (
-    <LoginWidget>
+    <AuthWidget>
       <Icon name={'Qencode'} />
       <Typography as={'h1'} size="lg" weight="semiBold" gutterTop={10} gutterBottom={5}>
         Log in to your account
       </Typography>
       <CloudLoginButtons>
-        <Button label="Google" variant="secondary" icon={<Icon name="Google" />} />
-        <Button label="Github" variant="secondary" icon={<Icon name="Github" />} />
+        <Button label="Google" variant="secondary" icon={<Icon name="Google" />} width="100%" />
+        <Button label="Github" variant="secondary" icon={<Icon name="Github" />} width="100%" />
       </CloudLoginButtons>
       <SDivider label="Or" />
       <InputsWrapper>
@@ -33,7 +34,7 @@ const Login = () => {
           Sign up
         </Typography>
       </Typography>
-    </LoginWidget>
+    </AuthWidget>
   )
 }
 

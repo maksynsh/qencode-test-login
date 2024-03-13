@@ -3,24 +3,11 @@ import styled from 'styled-components'
 import Divider from '@ui/Divider'
 import Link from '@ui/Link'
 
-export const LoginWidget = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 400px;
-  margin: ${({ theme }) => theme.space[3]} 0;
-`
-
 export const CloudLoginButtons = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.space[2]};
   width: 100%;
-
-  button {
-    width: 100%;
-  }
 `
 
 export const SDivider = styled(Divider)`

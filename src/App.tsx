@@ -6,6 +6,7 @@ import GlobalStyles from '@lib/globalStyles'
 import Layout from '@components/Layout'
 
 import Login from '@pages/Login'
+import ForgotPassword from '@pages/ForgotPassword'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/" element={<div>Hello World!</div>} />
             <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
           </Route>
         </Routes>
       </BrowserRouter>
