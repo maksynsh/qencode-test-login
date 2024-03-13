@@ -1,3 +1,5 @@
+import { Helmet } from 'react-helmet'
+
 import Button from '@ui/Button'
 import Icon from '@ui/Icon'
 import Typography from '@ui/Typography'
@@ -9,6 +11,9 @@ import { CloudLoginButtons, SDivider, InputsWrapper, SLink } from './styled'
 const Login = () => {
   return (
     <AuthWidget>
+      <Helmet>
+        <title>Log in to your account</title>
+      </Helmet>
       <Icon name={'Qencode'} />
       <Typography as={'h1'} size="lg" weight="semiBold" gutterTop={10} gutterBottom={5}>
         Log in to your account

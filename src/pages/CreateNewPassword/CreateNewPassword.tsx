@@ -1,3 +1,5 @@
+import { Helmet } from 'react-helmet'
+
 import Button from '@ui/Button'
 import Icon from '@ui/Icon'
 import Typography from '@ui/Typography'
@@ -9,9 +11,12 @@ import { Actions, InputsWrapper } from './styled'
 const CreateNewPassword = () => {
   return (
     <AuthWidget>
+      <Helmet>
+        <title>Create new Password</title>
+      </Helmet>
       <Icon name={'Qencode'} />
       <Typography as={'h1'} size="lg" weight="semiBold" gutterTop={10} gutterBottom={5}>
-        Create new password?
+        Create new Password?
       </Typography>
       <InputsWrapper>
         <Input type="password" label="Password" placeholder="Password" />
