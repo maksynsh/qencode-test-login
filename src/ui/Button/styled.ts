@@ -72,7 +72,7 @@ export const SButton = styled.button<ButtonProps>`
   background-color: transparent;
   border-width: 1px;
   border-style: solid;
-  border-radius: 6px;
+  border-radius: ${({ theme }) => theme.space[1]};
   padding: 0 ${({ theme }) => theme.space[1]};
   cursor: pointer;
   transition: all ${({ theme }) => theme.transitions.default};

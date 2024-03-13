@@ -6,22 +6,22 @@ import AuthWidget from '@components/AuthWidget'
 
 import { Actions, InputsWrapper } from './styled'
 
-const ForgotPassword = () => {
+const CreateNewPassword = () => {
   return (
     <AuthWidget>
       <Icon name={'Qencode'} />
       <Typography as={'h1'} size="lg" weight="semiBold" gutterTop={10} gutterBottom={5}>
-        Forgot Password?
+        Create new password?
       </Typography>
       <InputsWrapper>
-        <Input placeholder="Enter your email" />
+        <Input type="password" label="Password" placeholder="Password" />
+        <Input type="password" label="Confirm Password" placeholder="Password" />
       </InputsWrapper>
       <Actions>
-        <Button width="100%" label="Send" />
-        <Button variant="secondary" width="100%" label="Cancel" />
+        <Button width="100%" label="Reset Password" />
       </Actions>
     </AuthWidget>
   )
 }
 
-export default ForgotPassword
+export default CreateNewPassword
