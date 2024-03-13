@@ -25,7 +25,7 @@ export const SInput = styled.input<SInputProps>`
   border-width: 1px;
   border-style: solid;
   border-color: ${({ theme }) => theme.colors.lightGrey};
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.space[1]};
   padding: ${({ theme }) => theme.space[1.5]};
   padding-right: ${({ $hasIconRight }) => ($hasIconRight ? '36px' : ({ theme }) => theme.space[1])};
   color: ${({ theme }) => theme.colors.grey};
