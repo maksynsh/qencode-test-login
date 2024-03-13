@@ -23,7 +23,7 @@ export const InputsWrapper = styled.div`
 `
 
 export const SLink = styled(Link)`
-  margin-top: ${({ theme }) => theme.space[2]};
+  margin-top: ${({ theme }) => theme.space[2.5]};
   margin-bottom: ${({ theme }) => theme.space[4]};
   margin-left: auto;
 `

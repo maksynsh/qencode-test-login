@@ -12,7 +12,7 @@ export const Actions = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: ${({ theme }) => theme.space[2]};
+  gap: ${({ theme }) => theme.space[2.5]};
   margin-top: ${({ theme }) => theme.space[3]};
   width: 100%;
 `
