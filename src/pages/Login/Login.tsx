@@ -7,7 +7,7 @@ import Button from '@ui/Button'
 import Icon from '@ui/Icon'
 import Typography from '@ui/Typography'
 import Input from '@ui/Input'
-import AuthWidget from '@components/AuthWidget'
+import AuthWrapper from '@components/AuthWrapper'
 import Form from '@components/Form'
 
 import { CloudLoginButtons, SDivider, InputsWrapper, SLink } from './styled'
@@ -51,7 +51,7 @@ const Login = () => {
   }
 
   return (
-    <AuthWidget>
+    <AuthWrapper>
       <Helmet>
         <title>Log in to your account</title>
       </Helmet>
@@ -93,7 +93,7 @@ const Login = () => {
           Sign up
         </Typography>
       </Typography>
-    </AuthWidget>
+    </AuthWrapper>
   )
 }
 

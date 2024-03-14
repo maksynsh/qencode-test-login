@@ -4,13 +4,13 @@ import Button from '@ui/Button'
 import Icon from '@ui/Icon'
 import Typography from '@ui/Typography'
 import Input from '@ui/Input'
-import AuthWidget from '@components/AuthWidget'
+import AuthWrapper from '@components/AuthWrapper'
 
 import { Actions, InputsWrapper } from './styled'
 
 const ForgotPassword = () => {
   return (
-    <AuthWidget>
+    <AuthWrapper>
       <Helmet>
         <title>Forgot Password</title>
       </Helmet>
@@ -25,7 +25,7 @@ const ForgotPassword = () => {
         <Button width="100%" label="Send" />
         <Button variant="secondary" width="100%" label="Cancel" />
       </Actions>
-    </AuthWidget>
+    </AuthWrapper>
   )
 }
 
