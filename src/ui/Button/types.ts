@@ -1,3 +1,5 @@
+import { To } from 'react-router-dom'
+
 import { CustomTheme } from '@lib/theme'
 
 export interface ButtonProps {
@@ -13,4 +15,5 @@ export interface ButtonProps {
   isLoading?: boolean
   testId?: string
   icon?: React.ReactNode
+  to?: To
 }
