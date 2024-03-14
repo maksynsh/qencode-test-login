@@ -19,7 +19,7 @@ const ForgotPassword = () => {
         Forgot Password?
       </Typography>
       <InputsWrapper>
-        <Input placeholder="Enter your email" />
+        <Input placeholder="Enter your email" autocomplete="email" />
       </InputsWrapper>
       <Actions>
         <Button width="100%" label="Send" />

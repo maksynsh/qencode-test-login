@@ -19,8 +19,18 @@ const CreateNewPassword = () => {
         Create new Password?
       </Typography>
       <InputsWrapper>
-        <Input type="password" label="Password" placeholder="Password" />
-        <Input type="password" label="Confirm Password" placeholder="Password" />
+        <Input
+          type="password"
+          label="Password"
+          placeholder="Password"
+          autocomplete="current-password"
+        />
+        <Input
+          type="password"
+          label="Confirm Password"
+          placeholder="Password"
+          autocomplete="new-password"
+        />
       </InputsWrapper>
       <Actions>
         <Button width="100%" label="Reset Password" />

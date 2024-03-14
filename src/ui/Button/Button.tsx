@@ -4,6 +4,7 @@ import { ButtonProps } from './types'
 const Button = ({
   id,
   label,
+  type = 'button',
   variant = 'primary',
   onClick,
   icon: Icon,
@@ -21,7 +22,7 @@ const Button = ({
       variant={variant}
       className={className}
       data-testid={testId}
-      type="button"
+      type={type}
       {...props}
     >
       {isLoading ? (
