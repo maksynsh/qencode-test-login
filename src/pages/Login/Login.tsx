@@ -20,10 +20,7 @@ interface FormInput {
 const schema = yup
   .object({
     email: yup.string().email('Provide a valid email').required('Email is required'),
-    password: yup
-      .string()
-      .min(8, 'Password should be at least 8 characters')
-      .required('Password is required'),
+    password: yup.string().min(8, 'Password should be at least 8 characters').required(),
   })
   .required()
 
@@ -38,16 +35,6 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<FormInput> = (data) => {
     console.log(data)
-  }
-
-  const options = {
-    email: {
-      required: { value: true, message: 'Email is required' },
-    },
-    password: {
-      required: { value: true, message: 'Provide a password' },
-      minLength: { value: 8, message: 'Password should be at least 8 characters long' },
-    },
   }
 
   return (
@@ -67,13 +54,13 @@ const Login = () => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <InputsWrapper>
           <Input
-            {...register('email', options.email)}
+            {...register('email')}
             placeholder="Work email"
             autocomplete="email"
             errorMessage={errors.email?.message}
           />
           <Input
-            {...register('password', options.password)}
+            {...register('password')}
             placeholder="Password"
             type="password"
             autocomplete="current-password"
