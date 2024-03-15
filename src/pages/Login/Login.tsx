@@ -23,7 +23,7 @@ export interface FormInput {
 
 const schema = yup
   .object({
-    email: yup.string().email('Provide a valid email').required('Email is required'),
+    email: yup.string().trim().email('Provide a valid email').required('Email is required'),
     password: yup.string().min(8, 'Password should be at least 8 characters').required(),
   })
   .required()

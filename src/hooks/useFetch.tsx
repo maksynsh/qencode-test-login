@@ -76,9 +76,9 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
     } catch (err) {
       let currentError
       if (err instanceof Error) {
-        currentError = err.message
+        currentError = 'Error refreshing token: ' + err.message
       } else {
-        currentError = 'Unexpected error. Try again later'
+        currentError = 'Error refreshing token! Try again later.'
       }
 
       showAlert(currentError, { type: 'error' })

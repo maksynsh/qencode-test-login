@@ -36,7 +36,7 @@ export function useLocalStorage<T>({
         showAlert(err.message, { type: 'error' })
         return
       }
-      showAlert(`Error accessing ${key} from localStorage`, { type: 'error'})
+      showAlert(`Error accessing ${key} from localStorage`, { type: 'error' })
     }
   }
 

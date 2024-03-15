@@ -25,7 +25,7 @@ interface RequestBody {
 
 const schema = yup
   .object({
-    email: yup.string().email('Provide a valid email').required('Email is required'),
+    email: yup.string().trim().email('Provide a valid email').required('Email is required'),
   })
   .required()
 
