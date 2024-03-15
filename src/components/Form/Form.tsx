@@ -1,7 +1,7 @@
 import { SForm } from './styled'
 
 interface FormProps {
-  onSubmit: (e?: React.BaseSyntheticEvent<object> | undefined) => void
+  onSubmit: (e?: React.FormEvent<HTMLFormElement>) => void
   children?: React.ReactNode
 }
 

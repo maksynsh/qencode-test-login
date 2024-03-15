@@ -2,16 +2,12 @@ import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'a
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useLocalStorage } from './useLocalStorage'
+import { useAuth } from './useAuth'
+import { AuthData } from '@providers/Auth'
 
 type OperationVariables = Record<string, any>
 
-interface FetchTokenResult extends OperationVariables {
-  access_token: string
-  refresh_token: string
-  token_expire: number
-  refresh_token_expire: number
-}
+type FetchTokenResult = OperationVariables & AuthData
 
 interface QueryOptions<TVariables extends OperationVariables> {
   headers?: AxiosRequestHeaders
@@ -26,10 +22,10 @@ interface ExecutionResult<TData> {
   called: boolean
 }
 
-type ResponseData<TData> = Pick<ExecutionResult<TData>, 'data' | 'error'>
+type ReturnResult<TData> = Pick<ExecutionResult<TData>, 'data' | 'error'>
 
 type UseFetchType<TData extends OperationVariables, TVariables extends OperationVariables> = [
-  (options?: QueryOptions<TVariables>) => Promise<ResponseData<TData>>,
+  (options?: QueryOptions<TVariables>) => Promise<ReturnResult<TData>>,
   ExecutionResult<TData>,
 ]
 
@@ -52,14 +48,7 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
   const { headers: initHeaders = {}, method } = options
   const navigate = useNavigate()
 
-  const [token, setToken] = useLocalStorage<string | null>({
-    key: 'access_token',
-    initialValue: null,
-  })
-  const [refreshToken, setRefreshToken] = useLocalStorage<string | null>({
-    key: 'refresh_token',
-    initialValue: null,
-  })
+  const { setData: setAuth, token, refreshToken, logout } = useAuth()
 
   const [loading, setLoading] = useState(false)
   const [called, setCalled] = useState(false)
@@ -68,7 +57,7 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
 
   const fetchNewToken = useCallback(async () => {
     try {
-      const url = `${import.meta.env.VITE_BASE_URL}/v1/auth/login`
+      const url = `${import.meta.env.VITE_API_BASE_URL}/v1/auth/login`
 
       const config: AxiosRequestConfig = {
         method: 'POST',
@@ -83,24 +72,19 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
       const { data } = await axios<FetchTokenResult>(url, config)
 
       if (data.error == 0) {
-        setToken(data.access_token)
-        setRefreshToken(data.refresh_token)
-
+        setAuth(data)
         return true
       }
     } catch (error) {
-      setToken(null)
-      setRefreshToken(null)
-
+      logout()
       return false
     }
 
-    setToken(null)
-    setRefreshToken(null)
+    logout()
     return false
   }, [])
 
-  const query = useCallback<(params?: QueryOptions<TVariables>) => Promise<ResponseData<TData>>>(
+  const query = useCallback<(params?: QueryOptions<TVariables>) => Promise<ReturnResult<TData>>>(
     (params = {}) => {
       const { headers = {}, payload } = params
 
@@ -121,7 +105,7 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
             ...headers,
           }
 
-          const url = `${import.meta.env.VITE_BASE_URL}${queryString}`
+          const url = `${import.meta.env.VITE_API_BASE_URL}${queryString}`
 
           const urlString = url.toString()
 

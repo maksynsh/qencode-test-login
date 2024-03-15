@@ -45,7 +45,7 @@ const ForgotPassword = () => {
     const res = await query({
       payload: {
         email,
-        redirect_url: `${import.meta.env.VITE_BASE_URL}/create-new-password`,
+        redirect_url: `${import.meta.env.VITE_CLIENT_BASE_URL}/create-new-password`,
       },
     })
 
