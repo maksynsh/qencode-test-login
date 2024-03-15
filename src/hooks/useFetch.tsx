@@ -15,7 +15,7 @@ interface FetchTokenResult extends OperationVariables {
 
 interface QueryOptions<TVariables extends OperationVariables> {
   headers?: AxiosRequestHeaders
-  payload?: TVariables | object
+  payload?: TVariables
   method?: string
 }
 

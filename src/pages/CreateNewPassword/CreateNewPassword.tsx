@@ -9,12 +9,20 @@ import Typography from '@ui/Typography'
 import Input from '@ui/Input'
 import AuthWrapper from '@components/AuthWrapper'
 import Form from '@components/Form'
+import { useFetch } from '@hooks/useFetch'
 
 import { Actions, InputsWrapper } from './styled'
 
 interface FormInput {
   password: string
   passwordConfirm: string
+}
+
+interface RequestBody {
+  token: string
+  secret: string
+  password: string
+  password_confirm: string
 }
 
 const schema = yup
@@ -40,8 +48,23 @@ const CreateNewPassword = () => {
     resolver: yupResolver(schema),
   })
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    console.log(data)
+  const [query, { loading }] = useFetch<object, RequestBody>('/v1/auth/password-set', {
+    method: 'POST',
+  })
+
+  const onSubmit: SubmitHandler<FormInput> = async ({ password, passwordConfirm }) => {
+    const res = await query({
+      payload: {
+        token: 'token from url',
+        secret: 'secret from url',
+        password,
+        password_confirm: passwordConfirm,
+      },
+    })
+
+    if (res.data) {
+      console.log('Password updated successful!')
+    }
   }
 
   return (
@@ -73,7 +96,7 @@ const CreateNewPassword = () => {
           />
         </InputsWrapper>
         <Actions>
-          <Button type="submit" width="100%" label="Reset Password" />
+          <Button type="submit" width="100%" label="Reset Password" isLoading={loading} />
         </Actions>
       </Form>
     </AuthWrapper>
