@@ -1,6 +1,6 @@
 import { To } from 'react-router-dom'
 
-import { CustomTheme } from '@lib/theme'
+import { CustomTheme } from 'config/theme'
 
 export interface ButtonProps {
   id?: string

@@ -28,7 +28,7 @@
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
       "@ui/*": ["ui/*"],
-      "@lib/*": ["lib/*"],
+      "@config/*": ["config/*"],
       "@services/*": ["services/*"],
       "@types/*": ["types/*"]
     }

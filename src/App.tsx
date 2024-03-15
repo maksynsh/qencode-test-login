@@ -1,8 +1,8 @@
 import { ThemeProvider } from 'styled-components'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import theme from '@lib/theme'
-import GlobalStyles from '@lib/globalStyles'
+import theme from 'config/theme'
+import GlobalStyles from 'config/globalStyles'
 import Layout from '@components/Layout'
 import ProtectedRoute from '@components/ProtectedRoute'
 import AuthProvider from '@providers/Auth'
