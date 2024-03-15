@@ -17,6 +17,11 @@ interface FormInput {
   email: string
 }
 
+interface RequestBody {
+  email: string
+  redirect_url: string
+}
+
 const schema = yup
   .object({
     email: yup.string().email('Provide a valid email').required('Email is required'),
@@ -32,14 +37,19 @@ const ForgotPassword = () => {
     resolver: yupResolver(schema),
   })
 
-  const [query, { loading }] = useFetch<object, FormInput>('/v1/auth/password-reset', {
+  const [query, { loading }] = useFetch<object, RequestBody>('/v1/auth/password-reset', {
     method: 'POST',
   })
 
-  const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    const res = await query({ payload: data })
+  const onSubmit: SubmitHandler<FormInput> = async ({ email }) => {
+    const res = await query({
+      payload: {
+        email,
+        redirect_url: `${import.meta.env.VITE_BASE_URL}/create-new-password`,
+      },
+    })
 
-    if (res.data) {
+    if (!res.error) {
       console.log('Forgot password request successful!')
     }
   }

@@ -62,7 +62,7 @@ const CreateNewPassword = () => {
       },
     })
 
-    if (res.data) {
+    if (!res.error) {
       console.log('Password updated successful!')
     }
   }
