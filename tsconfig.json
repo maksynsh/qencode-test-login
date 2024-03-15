@@ -23,7 +23,8 @@
     /* Absolute paths */
     "baseUrl": "./src",
     "paths": {
-      "@assets/*": ["assets/*"],
+      "@hooks/*": ["hooks/*"],
+      "@providers/*": ["providers/*"],
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
       "@ui/*": ["ui/*"],

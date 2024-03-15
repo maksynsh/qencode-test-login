@@ -23,6 +23,7 @@ module.exports = {
     "no-restricted-exports": "off",
     "@typescript-eslint/no-unsafe-return": "off",
     "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },

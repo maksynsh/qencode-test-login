@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useNavigate } from 'react-router-dom'
 import * as yup from 'yup'
 
 import Button from '@ui/Button'
@@ -9,10 +10,13 @@ import Typography from '@ui/Typography'
 import Input from '@ui/Input'
 import AuthWrapper from '@components/AuthWrapper'
 import Form from '@components/Form'
+import { useAuth } from '@hooks/useAuth'
+import { AuthData } from '@providers/Auth'
+import { useFetch } from '@hooks/useFetch'
 
 import { CloudLoginButtons, SDivider, InputsWrapper, SLink } from './styled'
 
-interface FormInput {
+export interface FormInput {
   email: string
   password: string
 }
@@ -33,8 +37,24 @@ const Login = () => {
     resolver: yupResolver(schema),
   })
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    console.log(data)
+  const [query, { loading }] = useFetch<AuthData, FormInput>('/v1/auth/login', {
+    method: 'POST',
+  })
+
+  const { setData } = useAuth()
+
+  const navigate = useNavigate()
+
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    const res = await query({ payload: data })
+
+    if (res.data) {
+      setData(res.data)
+      navigate('/')
+      return
+    }
+
+    throw new Error(res.error)
   }
 
   return (
@@ -72,7 +92,7 @@ const Login = () => {
             Forgot your password?
           </Typography>
         </SLink>
-        <Button type="submit" width="100%" label="Log in to Qencode" />
+        <Button type="submit" width="100%" label="Log in to Qencode" isLoading={loading} />
       </Form>
       <Typography as={'p'} size="sm" weight="medium" color="grey" gutterTop={3}>
         Is your company new to Qencode?{' '}
