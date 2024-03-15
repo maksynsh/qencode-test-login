@@ -1,4 +1,4 @@
-import { CustomTheme } from 'config/theme'
+import { CustomTheme } from '@config/theme'
 
 export interface TypographyProps {
   as?: React.ElementType

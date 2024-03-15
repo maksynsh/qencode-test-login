@@ -30,6 +30,7 @@
       "@ui/*": ["ui/*"],
       "@config/*": ["config/*"],
       "@services/*": ["services/*"],
+      "@utils/*": ["utils/*"],
       "@types/*": ["types/*"]
     }
   },

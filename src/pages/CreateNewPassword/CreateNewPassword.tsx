@@ -10,6 +10,7 @@ import Input from '@ui/Input'
 import AuthWrapper from '@components/AuthWrapper'
 import Form from '@components/Form'
 import { useFetch } from '@hooks/useFetch'
+import showAlert from '@utils/showAlert'
 
 import { Actions, InputsWrapper } from './styled'
 
@@ -63,7 +64,7 @@ const CreateNewPassword = () => {
     })
 
     if (!res.error) {
-      console.log('Password updated successful!')
+      showAlert('Password updated successfully!', { type: 'success' })
     }
   }
 

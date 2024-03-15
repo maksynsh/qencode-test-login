@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { CustomTheme } from 'config/theme'
+import { CustomTheme } from '@config/theme'
 import { ButtonProps } from './types'
 
 const getVariantStyles = (theme: CustomTheme, variant: ButtonProps['variant']) => {

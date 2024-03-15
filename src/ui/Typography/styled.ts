@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { CustomTheme } from 'config/theme'
+import { CustomTheme } from '@config/theme'
 import { STypographyProps } from './types'
 
 export const STypography = styled.p<STypographyProps>`

@@ -1,9 +1,10 @@
 import { ThemeProvider } from 'styled-components'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import AuthProvider from '@providers/Auth'
 import Layout from '@components/Layout'
 import ProtectedRoute from '@components/ProtectedRoute'
+import AlertsContainer from '@components/AlertsContainer'
+import AuthProvider from '@providers/Auth'
 import theme from '@config/theme'
 import GlobalStyles from '@config/globalStyles'
 import routes from '@config/routes'
@@ -27,6 +28,7 @@ function App() {
               )}
             </Route>
           </Routes>
+          <AlertsContainer />
         </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>

@@ -9,6 +9,7 @@ import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { AuthData } from '@providers/Auth'
+import showAlert from '@utils/showAlert'
 import { useAuth } from './useAuth'
 
 type OperationVariables = Record<string, any>
@@ -80,7 +81,7 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
         currentError = 'Unexpected error. Try again later'
       }
 
-      console.log(currentError)
+      showAlert(currentError, { type: 'error' })
       logout()
       return false
     }
@@ -152,7 +153,7 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
             currentError = 'Unexpected error. Try again later'
           }
 
-          console.log(err)
+          showAlert(currentError, { type: 'error' })
           setError(currentError)
         } finally {
           setLoading(false)

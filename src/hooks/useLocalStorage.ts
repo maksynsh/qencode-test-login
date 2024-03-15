@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import showAlert from '@utils/showAlert'
+
 interface UseLocalStorageProps<T> {
   key: string
   initialValue: T
@@ -29,8 +31,12 @@ export function useLocalStorage<T>({
       if (typeof window !== 'undefined') {
         window.localStorage.setItem(key, JSON.stringify(valueToStore))
       }
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      if (err instanceof Error) {
+        showAlert(err.message, { type: 'error' })
+        return
+      }
+      showAlert(`Error accessing ${key} from localStorage`, { type: 'error'})
     }
   }
 

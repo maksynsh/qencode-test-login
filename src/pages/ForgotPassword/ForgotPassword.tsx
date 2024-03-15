@@ -10,6 +10,7 @@ import Input from '@ui/Input'
 import AuthWrapper from '@components/AuthWrapper'
 import Form from '@components/Form'
 import { useFetch } from '@hooks/useFetch'
+import showAlert from '@utils/showAlert'
 
 import { Actions, InputsWrapper } from './styled'
 
@@ -50,7 +51,7 @@ const ForgotPassword = () => {
     })
 
     if (!res.error) {
-      console.log('Forgot password request successful!')
+      showAlert('Forgot password request successful!', { type: 'success' })
     }
   }
 

@@ -13,6 +13,7 @@ export default defineConfig({
       '@ui': '/src/ui',
       '@config': '/src/config',
       '@services': '/src/services',
+      '@utils': '/src/utils',
       '@types': '/src/types',
     },
   },
