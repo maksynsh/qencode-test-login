@@ -1,16 +1,12 @@
 import { ThemeProvider } from 'styled-components'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import theme from 'config/theme'
-import GlobalStyles from 'config/globalStyles'
+import AuthProvider from '@providers/Auth'
 import Layout from '@components/Layout'
 import ProtectedRoute from '@components/ProtectedRoute'
-import AuthProvider from '@providers/Auth'
-
-import Home from '@pages/Home'
-import Login from '@pages/Login'
-import ForgotPassword from '@pages/ForgotPassword'
-import CreateNewPassword from '@pages/CreateNewPassword'
+import theme from '@config/theme'
+import GlobalStyles from '@config/globalStyles'
+import routes from '@config/routes'
 
 function App() {
   return (
@@ -20,12 +16,15 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route element={<Layout />}>
-              <Route element={<ProtectedRoute />}>
-                <Route path="/" element={<Home />} />
-              </Route>
-              <Route path="/login" element={<Login />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
-              <Route path="/create-new-password" element={<CreateNewPassword />} />
+              {routes.map(({ protect, ...route }) =>
+                protect ? (
+                  <Route key={route.path} element={<ProtectedRoute />}>
+                    <Route {...route} />
+                  </Route>
+                ) : (
+                  <Route key={route.path} {...route} />
+                ),
+              )}
             </Route>
           </Routes>
         </AuthProvider>
