@@ -1,9 +1,15 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse } from 'axios'
+import axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosRequestHeaders,
+  AxiosResponse,
+  isAxiosError,
+} from 'axios'
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useAuth } from './useAuth'
 import { AuthData } from '@providers/Auth'
+import { useAuth } from './useAuth'
 
 type OperationVariables = Record<string, any>
 
@@ -29,17 +35,8 @@ type UseFetchType<TData extends OperationVariables, TVariables extends Operation
   ExecutionResult<TData>,
 ]
 
-const apiCall = async (urlString: string, init: AxiosRequestConfig): Promise<AxiosResponse> => {
-  try {
-    return await axios(urlString, init)
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      throw new Error(error.message)
-    } else {
-      throw new Error('An unexpected error occurred')
-    }
-  }
-}
+const apiCall = async (urlString: string, init: AxiosRequestConfig): Promise<AxiosResponse> =>
+  await axios(urlString, init)
 
 export const useFetch = <TData extends OperationVariables, TVariables extends OperationVariables>(
   queryString: string,
@@ -57,7 +54,7 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
 
   const fetchNewToken = useCallback(async () => {
     try {
-      const url = `${import.meta.env.VITE_API_BASE_URL}/v1/auth/login`
+      const url = `${import.meta.env.VITE_API_BASE_URL}/v1/auth/refresh-token`
 
       const config: AxiosRequestConfig = {
         method: 'POST',
@@ -75,7 +72,15 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
         setAuth(data)
         return true
       }
-    } catch (error) {
+    } catch (err) {
+      let currentError
+      if (err instanceof Error) {
+        currentError = err.message
+      } else {
+        currentError = 'Unexpected error. Try again later'
+      }
+
+      console.log(currentError)
       logout()
       return false
     }
@@ -97,28 +102,32 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
         let response
         let currentError
 
+        const url = `${import.meta.env.VITE_API_BASE_URL}${queryString}`
+
+        const urlString = url.toString()
+
+        const queryHeaders = {
+          'Content-Type': 'application/json',
+          Authorization: token && `Bearer ${token}`,
+          ...initHeaders,
+          ...headers,
+        }
+
+        const config: AxiosRequestConfig = {
+          method,
+          headers: queryHeaders,
+          data: payload,
+        }
+
         try {
-          const queryHeaders = {
-            'Content-Type': 'application/json',
-            Authorization: token && `Bearer ${token}`,
-            ...initHeaders,
-            ...headers,
-          }
-
-          const url = `${import.meta.env.VITE_API_BASE_URL}${queryString}`
-
-          const urlString = url.toString()
-
-          const config: AxiosRequestConfig = {
-            method,
-            headers: queryHeaders,
-            data: payload,
-          }
-
           response = await apiCall(urlString, config)
 
-          const checkRefetchToken = async (res: AxiosResponse) => {
-            if (res?.status !== 401) {
+          if (response.data) {
+            setData(response.data as TData)
+          }
+        } catch (err) {
+          const checkRefetchToken = async (err: AxiosError) => {
+            if (err.response?.status !== 401) {
               return
             }
 
@@ -136,24 +145,21 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
             }
           }
 
-          await checkRefetchToken(response)
-
-          if (response.data) {
-            setData(response.data as TData)
-          }
-        } catch (err) {
-          if (err instanceof Error) {
+          if (isAxiosError(err)) {
+            await checkRefetchToken(err)
             currentError = err.message
           } else {
             currentError = 'Unexpected error. Try again later'
           }
+
+          console.log(err)
           setError(currentError)
         } finally {
           setLoading(false)
         }
 
         return {
-          data,
+          data: response?.data as TData | undefined,
           error: currentError,
         }
       }
