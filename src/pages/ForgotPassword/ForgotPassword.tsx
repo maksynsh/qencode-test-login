@@ -9,6 +9,7 @@ import Typography from '@ui/Typography'
 import Input from '@ui/Input'
 import AuthWrapper from '@components/AuthWrapper'
 import Form from '@components/Form'
+import { useFetch } from '@hooks/useFetch'
 
 import { Actions, InputsWrapper } from './styled'
 
@@ -31,8 +32,16 @@ const ForgotPassword = () => {
     resolver: yupResolver(schema),
   })
 
-  const onSubmit: SubmitHandler<FormInput> = (data) => {
-    console.log(data)
+  const [query, { loading }] = useFetch<object, FormInput>('/v1/auth/password-reset', {
+    method: 'POST',
+  })
+
+  const onSubmit: SubmitHandler<FormInput> = async (data) => {
+    const res = await query({ payload: data })
+
+    if (res.data) {
+      console.log('Forgot password request successful!')
+    }
   }
 
   return (
@@ -54,8 +63,8 @@ const ForgotPassword = () => {
           />
         </InputsWrapper>
         <Actions>
-          <Button type="submit" width="100%" label="Send" />
-          <Button to={'/'} variant="secondary" width="100%" label="Cancel" />
+          <Button type="submit" width="100%" label="Send" isLoading={loading} />
+          <Button to={'/'} variant="secondary" width="100%" label="Cancel" isDisabled={loading} />
         </Actions>
       </Form>
     </AuthWrapper>

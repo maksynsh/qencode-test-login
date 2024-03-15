@@ -82,7 +82,7 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
 
       const { data } = await axios<FetchTokenResult>(url, config)
 
-      if (data.error === '0') {
+      if (data.error == 0) {
         setToken(data.access_token)
         setRefreshToken(data.refresh_token)
 
@@ -111,6 +111,7 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
 
       const fetchData = async () => {
         let response
+        let currentError
 
         try {
           const queryHeaders = {
@@ -157,21 +158,19 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
             setData(response.data as TData)
           }
         } catch (err) {
-          console.log(`error`, err)
-
+          if (err instanceof Error) {
+            currentError = err.message
+          } else {
+            currentError = 'Unexpected error. Try again later'
+          }
+          setError(currentError)
+        } finally {
           setLoading(false)
-          setError(err as string)
-        }
-        try {
-          setLoading(false)
-          setError(undefined)
-        } catch (err) {
-          console.log(`error`, err)
         }
 
         return {
           data,
-          error,
+          error: currentError,
         }
       }
 
