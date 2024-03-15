@@ -1,7 +1,7 @@
 import { ThemeProvider } from 'styled-components'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import Layout from '@components/Layout'
+import AppContent from '@components/AppContent'
 import ProtectedRoute from '@components/ProtectedRoute'
 import AlertsContainer from '@components/AlertsContainer'
 import AuthProvider from '@providers/Auth'
@@ -16,7 +16,7 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route element={<Layout />}>
+            <Route element={<AppContent />}>
               {routes.map(({ protect, ...route }) =>
                 protect ? (
                   <Route key={route.path} element={<ProtectedRoute />}>

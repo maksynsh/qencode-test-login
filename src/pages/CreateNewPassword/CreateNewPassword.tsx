@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet'
+import { useNavigate, useParams } from 'react-router-dom'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -20,8 +21,8 @@ interface FormInput {
 }
 
 interface RequestBody {
-  token: string
-  secret: string
+  token?: string
+  secret?: string
   password: string
   password_confirm: string
 }
@@ -53,11 +54,14 @@ const CreateNewPassword = () => {
     method: 'POST',
   })
 
+  const { token, secret } = useParams()
+  const navigate = useNavigate()
+
   const onSubmit: SubmitHandler<FormInput> = async ({ password, passwordConfirm }) => {
     const res = await query({
       payload: {
-        token: 'token from url',
-        secret: 'secret from url',
+        token: token,
+        secret: secret,
         password,
         password_confirm: passwordConfirm,
       },
@@ -65,6 +69,7 @@ const CreateNewPassword = () => {
 
     if (!res.error) {
       showAlert('Password updated successfully!', { type: 'success' })
+      navigate('/')
     }
   }
 

@@ -6,6 +6,7 @@ export interface ButtonProps {
   id?: string
   label?: string
   type?: 'button' | 'submit'
+  size?: 'small' | 'medium'
   width?: string
   fontSize?: keyof CustomTheme['fontSizes']
   variant?: 'primary' | 'secondary'

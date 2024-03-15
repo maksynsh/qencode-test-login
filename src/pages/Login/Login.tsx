@@ -51,10 +51,7 @@ const Login = () => {
     if (res.data) {
       setData(res.data)
       navigate('/')
-      return
     }
-
-    throw new Error(res.error)
   }
 
   return (

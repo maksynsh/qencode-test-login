@@ -51,7 +51,7 @@ const ForgotPassword = () => {
     })
 
     if (!res.error) {
-      showAlert('Forgot password request successful!', { type: 'success' })
+      showAlert(`Password reset URL was sent to ${email}`, { type: 'success' })
     }
   }
 

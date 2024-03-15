@@ -7,6 +7,7 @@ const Button = ({
   label,
   type = 'button',
   variant = 'primary',
+  size = 'medium',
   onClick,
   icon: Icon,
   isDisabled = false,
@@ -32,6 +33,7 @@ const Button = ({
       className={className}
       data-testid={testId}
       type={type}
+      size={size}
       {...props}
     >
       {isLoading ? (

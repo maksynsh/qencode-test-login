@@ -24,7 +24,7 @@ const routes: RouteType[] = [
     element: <ForgotPassword />,
   },
   {
-    path: '/create-new-password',
+    path: '/create-new-password/:secret?/:token?',
     element: <CreateNewPassword />,
   },
   {

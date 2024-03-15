@@ -98,6 +98,15 @@ export const SButton = styled.button<ButtonProps>`
 
   ${({ theme, variant }) => getVariantStyles(theme, variant)};
 
+  ${({ theme, size, fontSize }) =>
+    size === 'small'
+      ? `
+        padding: 0 ${theme.space[1.5]};
+        font-size: ${theme.fontSizes[fontSize ?? 'sm']};
+        height: ${theme.rowSize.sm};
+      `
+      : ``}
+
   ${({ disabled }) =>
     disabled &&
     `
