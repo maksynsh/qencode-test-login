@@ -11,6 +11,7 @@ import AuthWrapper from '@components/AuthWrapper'
 import Form from '@components/Form'
 import { useFetch } from '@hooks/useFetch'
 import showAlert from '@utils/showAlert'
+import pathsService from '@utils/pathsService'
 
 import { Actions, InputsWrapper } from './styled'
 
@@ -38,7 +39,7 @@ const ForgotPassword = () => {
     resolver: yupResolver(schema),
   })
 
-  const [query, { loading }] = useFetch<object, RequestBody>('/v1/auth/password-reset', {
+  const [query, { loading }] = useFetch<object, RequestBody>(pathsService.getForgotPasswordPath(), {
     method: 'POST',
   })
 

@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { AuthData } from '@providers/Auth'
 import showAlert from '@utils/showAlert'
+import pathsService from '@utils/pathsService'
 import { useAuth } from './useAuth'
 
 type OperationVariables = Record<string, any>
@@ -55,7 +56,7 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
 
   const fetchNewToken = useCallback(async () => {
     try {
-      const url = `${import.meta.env.VITE_API_BASE_URL}/v1/auth/refresh-token`
+      const url = `${import.meta.env.VITE_API_BASE_URL}${pathsService.getRefreshTokenPath()}`
 
       const config: AxiosRequestConfig = {
         method: 'POST',

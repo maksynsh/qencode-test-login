@@ -13,6 +13,7 @@ import Form from '@components/Form'
 import { useAuth } from '@hooks/useAuth'
 import { AuthData } from '@providers/Auth'
 import { useFetch } from '@hooks/useFetch'
+import pathsService from '@utils/pathsService'
 
 import { CloudLoginButtons, SDivider, InputsWrapper, SLink } from './styled'
 
@@ -37,7 +38,7 @@ const Login = () => {
     resolver: yupResolver(schema),
   })
 
-  const [query, { loading }] = useFetch<AuthData, FormInput>('/v1/auth/login', {
+  const [query, { loading }] = useFetch<AuthData, FormInput>(pathsService.getLoginPath(), {
     method: 'POST',
   })
 
