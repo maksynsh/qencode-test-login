@@ -1,27 +1,35 @@
 import { ThemeProvider } from 'styled-components'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import theme from '@lib/theme'
-import GlobalStyles from '@lib/globalStyles'
-import Layout from '@components/Layout'
-
-import Login from '@pages/Login'
-import ForgotPassword from '@pages/ForgotPassword'
-import CreateNewPassword from '@pages/CreateNewPassword'
+import AppContent from '@components/AppContent'
+import ProtectedRoute from '@components/ProtectedRoute'
+import AlertsContainer from '@components/AlertsContainer'
+import AuthProvider from '@providers/Auth'
+import theme from '@config/theme'
+import GlobalStyles from '@config/globalStyles'
+import routes from '@config/routes'
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
       <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<div>Hello World!</div>} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/create-new-password" element={<CreateNewPassword />} />
-          </Route>
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route element={<AppContent />}>
+              {routes.map(({ protect, ...route }) =>
+                protect ? (
+                  <Route key={route.path} element={<ProtectedRoute />}>
+                    <Route {...route} />
+                  </Route>
+                ) : (
+                  <Route key={route.path} {...route} />
+                ),
+              )}
+            </Route>
+          </Routes>
+          <AlertsContainer />
+        </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>
   )

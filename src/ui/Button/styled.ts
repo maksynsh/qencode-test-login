@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { CustomTheme } from '@lib/theme'
+import { CustomTheme } from '@config/theme'
 import { ButtonProps } from './types'
 
 const getVariantStyles = (theme: CustomTheme, variant: ButtonProps['variant']) => {
@@ -73,7 +73,7 @@ export const SButton = styled.button<ButtonProps>`
   border-width: 1px;
   border-style: solid;
   border-radius: ${({ theme }) => theme.space[1]};
-  padding: 0 ${({ theme }) => theme.space[1]};
+  padding: 0 ${({ theme }) => theme.space[2]};
   cursor: pointer;
   transition: all ${({ theme }) => theme.transitions.default};
   font-weight: ${({ theme }) => theme.fontWeight.medium};
@@ -97,6 +97,15 @@ export const SButton = styled.button<ButtonProps>`
   }
 
   ${({ theme, variant }) => getVariantStyles(theme, variant)};
+
+  ${({ theme, size, fontSize }) =>
+    size === 'small'
+      ? `
+        padding: 0 ${theme.space[1.5]};
+        font-size: ${theme.fontSizes[fontSize ?? 'sm']};
+        height: ${theme.rowSize.sm};
+      `
+      : ``}
 
   ${({ disabled }) =>
     disabled &&

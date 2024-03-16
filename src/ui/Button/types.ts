@@ -1,8 +1,12 @@
-import { CustomTheme } from '@lib/theme'
+import { To } from 'react-router-dom'
+
+import { CustomTheme } from '@config/theme'
 
 export interface ButtonProps {
   id?: string
   label?: string
+  type?: 'button' | 'submit'
+  size?: 'small' | 'medium'
   width?: string
   fontSize?: keyof CustomTheme['fontSizes']
   variant?: 'primary' | 'secondary'
@@ -12,4 +16,5 @@ export interface ButtonProps {
   isLoading?: boolean
   testId?: string
   icon?: React.ReactNode
+  to?: To
 }

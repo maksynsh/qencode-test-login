@@ -1,27 +1,39 @@
+import { useNavigate } from 'react-router-dom'
 import { SButton } from './styled'
 import { ButtonProps } from './types'
 
 const Button = ({
   id,
   label,
+  type = 'button',
   variant = 'primary',
+  size = 'medium',
   onClick,
   icon: Icon,
   isDisabled = false,
   isLoading = false,
   testId,
   className,
+  to,
   ...props
 }: ButtonProps) => {
+  const navigate = useNavigate()
+
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (to) navigate(to)
+    if (onClick) onClick(e)
+  }
+
   return (
     <SButton
       disabled={isDisabled}
-      onClick={isDisabled ?? isLoading ? undefined : onClick}
+      onClick={isDisabled ?? isLoading ? undefined : handleClick}
       id={id}
       variant={variant}
       className={className}
       data-testid={testId}
-      type="button"
+      type={type}
+      size={size}
       {...props}
     >
       {isLoading ? (

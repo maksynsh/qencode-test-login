@@ -1,16 +1,63 @@
 import { Helmet } from 'react-helmet'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
 import Button from '@ui/Button'
 import Icon from '@ui/Icon'
 import Typography from '@ui/Typography'
 import Input from '@ui/Input'
-import AuthWidget from '@components/AuthWidget'
+import AuthWrapper from '@components/AuthWrapper'
+import Form from '@components/Form'
+import { useFetch } from '@hooks/useFetch'
+import showAlert from '@utils/showAlert'
+import pathsService from '@utils/pathsService'
 
 import { Actions, InputsWrapper } from './styled'
 
+interface FormInput {
+  email: string
+}
+
+interface RequestBody {
+  email: string
+  redirect_url: string
+}
+
+const schema = yup
+  .object({
+    email: yup.string().trim().email('Provide a valid email').required('Email is required'),
+  })
+  .required()
+
 const ForgotPassword = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormInput>({
+    resolver: yupResolver(schema),
+  })
+
+  const [query, { loading }] = useFetch<object, RequestBody>(pathsService.getForgotPasswordPath(), {
+    method: 'POST',
+  })
+
+  const onSubmit: SubmitHandler<FormInput> = async ({ email }) => {
+    const res = await query({
+      payload: {
+        email,
+        redirect_url: `${import.meta.env.VITE_CLIENT_BASE_URL}/create-new-password`,
+      },
+    })
+
+    if (!res.error) {
+      showAlert(`Password reset URL was sent to ${email}`, { type: 'success' })
+    }
+  }
+
   return (
-    <AuthWidget>
+    <AuthWrapper>
       <Helmet>
         <title>Forgot Password</title>
       </Helmet>
@@ -18,14 +65,21 @@ const ForgotPassword = () => {
       <Typography as={'h1'} size="lg" weight="semiBold" gutterTop={10} gutterBottom={5}>
         Forgot Password?
       </Typography>
-      <InputsWrapper>
-        <Input placeholder="Enter your email" />
-      </InputsWrapper>
-      <Actions>
-        <Button width="100%" label="Send" />
-        <Button variant="secondary" width="100%" label="Cancel" />
-      </Actions>
-    </AuthWidget>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <InputsWrapper>
+          <Input
+            {...register('email')}
+            placeholder="Enter your email"
+            autocomplete="email"
+            errorMessage={errors.email?.message}
+          />
+        </InputsWrapper>
+        <Actions>
+          <Button type="submit" width="100%" label="Send" isLoading={loading} />
+          <Button to={'/'} variant="secondary" width="100%" label="Cancel" isDisabled={loading} />
+        </Actions>
+      </Form>
+    </AuthWrapper>
   )
 }
 

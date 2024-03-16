@@ -23,12 +23,14 @@
     /* Absolute paths */
     "baseUrl": "./src",
     "paths": {
-      "@assets/*": ["assets/*"],
+      "@hooks/*": ["hooks/*"],
+      "@providers/*": ["providers/*"],
       "@components/*": ["components/*"],
       "@pages/*": ["pages/*"],
       "@ui/*": ["ui/*"],
-      "@lib/*": ["lib/*"],
+      "@config/*": ["config/*"],
       "@services/*": ["services/*"],
+      "@utils/*": ["utils/*"],
       "@types/*": ["types/*"]
     }
   },
