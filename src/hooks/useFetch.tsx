@@ -54,6 +54,7 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
   const [error, setError] = useState<string | undefined>()
   const [data, setData] = useState<TData>()
 
+  // Helper function to retrieve new access token using refresh token
   const fetchNewToken = useCallback(async () => {
     try {
       const url = `${import.meta.env.VITE_API_BASE_URL}${pathsService.getRefreshTokenPath()}`
@@ -91,15 +92,18 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
     return false
   }, [])
 
+  // Callback function for making a request
   const query = useCallback<(params?: QueryOptions<TVariables>) => Promise<ReturnResult<TData>>>(
     (params = {}) => {
       const { headers = {}, payload } = params
 
+      // 1) Initialize query
       setLoading(true)
       setError(undefined)
       setData(undefined)
       setCalled(true)
 
+      // 2) Create function to fetch data
       const fetchData = async () => {
         let response
         let currentError
@@ -108,26 +112,31 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
 
         const urlString = url.toString()
 
-        const queryHeaders = {
+        // Define the request headers
+        const requestHeaders = {
           'Content-Type': 'application/json',
           Authorization: token && `Bearer ${token}`,
           ...initHeaders,
           ...headers,
         }
 
+        // Complete request config
         const config: AxiosRequestConfig = {
           method,
-          headers: queryHeaders,
+          headers: requestHeaders,
           data: payload,
         }
 
         try {
+          // API call
           response = await apiCall(urlString, config)
 
           if (response.data) {
             setData(response.data as TData)
           }
         } catch (err) {
+          /* Declare function to check the error. And in case request failed with status 401:
+          refetch token and try API call again */
           const checkRefetchToken = async (err: AxiosError) => {
             if (err.response?.status !== 401) {
               return
@@ -147,6 +156,7 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
             }
           }
 
+          // Handle error
           if (isAxiosError(err)) {
             await checkRefetchToken(err)
             currentError = err.message
@@ -157,36 +167,30 @@ export const useFetch = <TData extends OperationVariables, TVariables extends Op
           showAlert(currentError, { type: 'error' })
           setError(currentError)
         } finally {
+          // In any case set loading state to false
           setLoading(false)
         }
 
+        // Return object containing data or error
         return {
           data: response?.data as TData | undefined,
           error: currentError,
         }
       }
 
+      // 3) Return callback function for fetching
       return fetchData()
     },
     [queryString],
   )
 
-  let result: ExecutionResult<TData>
-
-  if (!called || loading || error) {
-    result = {
-      data,
-      error,
-      loading,
-      called,
-    }
-  } else {
-    result = {
-      data,
-      error,
-      loading,
-      called,
-    }
+  const result: ExecutionResult<TData> = {
+    data,
+    error,
+    loading,
+    called,
   }
+
+  // Hook returns callback query and  result (state of execution)
   return [query, result]
 }
