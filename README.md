@@ -31,6 +31,9 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
+
+
+
 ## Project Folder Structure
 
 This section outlines the folder structure used within the `src` directory of this project.
@@ -78,7 +81,6 @@ Utility functions that are used across the application. These could be helper fu
 - Keep each file focused on a single responsibility.
 - Prefer functional components and hooks over class components.
 - Name files and components consistently and clearly.
-- Write tests for components, hooks, and utils.
 - Document complex logic with comments.
 
 ## Additional Notes
