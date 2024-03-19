@@ -31,8 +31,18 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
+## Other console commands
 
+### `npm run storybook`
 
+Runs the storybook documentation app in the development mode.\
+Open [http://localhost:6006](http://localhost:6006) to view it in the browser.
+
+### `npm run build-storybook`
+
+Builds the storybook documentation app for production to the `storybook-static` folder.
+
+---
 
 ## Project Folder Structure
 
