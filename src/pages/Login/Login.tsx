@@ -33,10 +33,13 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, touchedFields },
   } = useForm<FormInput>({
     resolver: yupResolver(schema),
+    mode: 'onBlur',
   })
+
+  //const [showPasswordField, setShowPasswordField] = useState(false)
 
   const [query, { loading }] = useFetch<AuthData, FormInput>(pathsService.getLoginPath(), {
     method: 'POST',
@@ -77,13 +80,15 @@ const Login = () => {
             autocomplete="email"
             errorMessage={errors.email?.message}
           />
-          <Input
-            {...register('password')}
-            placeholder="Password"
-            type="password"
-            autocomplete="current-password"
-            errorMessage={errors.password?.message}
-          />
+          {touchedFields.email && !errors.email && (
+            <Input
+              {...register('password')}
+              placeholder="Password"
+              type="password"
+              autocomplete="current-password"
+              errorMessage={touchedFields.password ? errors.password?.message : undefined}
+            />
+          )}
         </InputsWrapper>
         <SLink to="/forgot-password">
           <Typography as={'p'} size="sm" weight="medium" color="primary">
