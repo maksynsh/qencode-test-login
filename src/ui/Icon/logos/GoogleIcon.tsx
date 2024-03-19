@@ -1,4 +1,6 @@
-const GoogleIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+import { CATEGORY } from '../constants'
+
+const GoogleIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       d="M18 9.20455C18 8.56636 17.9416 7.95273 17.833 7.36364H9.18367V10.845H14.1262C13.9133 11.97 13.2662 12.9232 12.2936 13.5614V15.8195H15.2616C16.9981 14.2527 18 11.9455 18 9.20455Z"
@@ -18,5 +20,7 @@ const GoogleIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     />
   </svg>
 )
+
+GoogleIcon.category = CATEGORY.LOGO
 
 export default GoogleIcon

@@ -1,4 +1,6 @@
-const EyeClosedIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+import { CATEGORY } from '../constants'
+
+const EyeClosedIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       fillRule="evenodd"
@@ -9,5 +11,7 @@ const EyeClosedIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     <path d="M 0 0 L 100 100" stroke="#67717B" strokeWidth="1" />
   </svg>
 )
+
+EyeClosedIcon.category = CATEGORY.SYMBOL
 
 export default EyeClosedIcon

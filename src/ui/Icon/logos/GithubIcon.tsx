@@ -1,4 +1,6 @@
-const GithubIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
+import { CATEGORY } from '../constants'
+
+const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg viewBox="0 0 21 18" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
@@ -8,5 +10,7 @@ const GithubIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     </svg>
   )
 }
+
+GithubIcon.category = CATEGORY.LOGO
 
 export default GithubIcon
