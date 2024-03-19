@@ -1,4 +1,6 @@
-const EyeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+import { CATEGORY } from '../constants'
+
+const EyeIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path
       fillRule="evenodd"
@@ -8,5 +10,7 @@ const EyeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     />
   </svg>
 )
+
+EyeIcon.category = CATEGORY.SYMBOL
 
 export default EyeIcon

@@ -1,4 +1,6 @@
-const QencodeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+import { CATEGORY } from '../constants'
+
+const QencodeIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     width="179"
     height="32"
@@ -37,5 +39,7 @@ const QencodeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
     />
   </svg>
 )
+
+QencodeIcon.category = CATEGORY.LOGO
 
 export default QencodeIcon
