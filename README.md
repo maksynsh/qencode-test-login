@@ -1,6 +1,7 @@
 # Auth implementation for Qencode
 
-- [Test deployment](https://test-qencode.netlify.app/) from master branch
+- [Test deployment](https://test-qencode.netlify.app/) only the production (master) branch
+- [Storybook deployment](https://test-qencode-storybook.netlify.app/) only the production (master) branch
 
 ## Requirements
 
